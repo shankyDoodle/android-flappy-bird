@@ -39,7 +39,7 @@ public class StartFlappyBird extends ApplicationAdapter {
     float maxTubeOffset;
     Random randomNumberGenerator;
 
-    float tubeVelocity = 6;
+    float tubeVelocity = 5;
     int numberOfTubes = 4;
     float[] tubeX = new float[numberOfTubes];
     float[] tubeOffset = new float[numberOfTubes];
@@ -60,24 +60,24 @@ public class StartFlappyBird extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
 
-        background = new Texture("bg.png");
+        background = new Texture("bg.jpg");
         birdCircle = new Circle();
 
         gameover = new Texture("gameover.png");
+
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(10);
+        font.getData().setScale(5, 5);
 
         birds = new Texture[2];
-        birds[0] = new Texture("bird.png");
-        birds[1] = new Texture("bird2.png");
-//        birdY = Gdx.graphics.getHeight() / 2 - birds[0].getHeight() / 2;
+        birds[0] = new Texture("jet.png");
+        birds[1] = new Texture("jet.png");
 
         topTube = new Texture("toptube.png");
         bottomTube = new Texture("bottomtube.png");
         maxTubeOffset = Gdx.graphics.getHeight() / 2 - gap / 2 - 200;
         randomNumberGenerator = new Random();
-        distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
+        distanceBetweenTubes = Gdx.graphics.getWidth() / 2 + 150;
 
         topTubeRectangles = new Rectangle[numberOfTubes];
         bottomTubeRectangles = new Rectangle[numberOfTubes];
@@ -162,6 +162,7 @@ public class StartFlappyBird extends ApplicationAdapter {
                 score = 0;
                 scoringTubes = 0;
                 velocity = 0;
+                tubeVelocity = 5;
             }
         }
 
