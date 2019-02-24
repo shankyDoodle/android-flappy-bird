@@ -117,6 +117,9 @@ public class StartFlappyBird extends ApplicationAdapter {
                 Gdx.app.log("Score", String.valueOf(score));
                 if (scoringTubes < numberOfTubes - 1) {
                     scoringTubes++;
+                    if(score%5 == 0){
+                        tubeVelocity += 2.5;
+                    }
                 } else {
                     scoringTubes = 0;
                 }
