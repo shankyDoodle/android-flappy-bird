@@ -2,6 +2,7 @@ package com.shankydoodle.flappybird;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -55,6 +56,7 @@ public class StartFlappyBird extends ApplicationAdapter {
     int scoringTubes = 0;
     BitmapFont font;
 
+    Sound sound;
 
     @Override
     public void create() {
@@ -82,6 +84,7 @@ public class StartFlappyBird extends ApplicationAdapter {
         topTubeRectangles = new Rectangle[numberOfTubes];
         bottomTubeRectangles = new Rectangle[numberOfTubes];
 
+        sound = Gdx.audio.newSound(Gdx.files.internal("tap.mp3"));
 
         startGame();
 
@@ -130,6 +133,8 @@ public class StartFlappyBird extends ApplicationAdapter {
             if (Gdx.input.justTouched()) {
                 //Gdx.app.log("Touched!", "Touched");
                 velocity = -30;
+                long id = sound.play(1);
+//                sound.stop(id);
             }
 
             // Increasing the velocity each time the render method is invoked
@@ -179,15 +184,15 @@ public class StartFlappyBird extends ApplicationAdapter {
 
         batch.draw(birds[flapState], Gdx.graphics.getWidth() / 2 - birds[flapState].getWidth() / 2, birdY);
 
-        font.draw(batch, String.valueOf(score), 100, 200);
+        font.draw(batch, String.valueOf(score), 100, Gdx.graphics.getHeight() - 200);
 
         birdCircle.set(Gdx.graphics.getWidth() / 2, birdY + birds[flapState].getHeight() / 2, birds[flapState].getWidth() / 2);
 
         for (int i = 0; i < numberOfTubes; i++) {
             if (Intersector.overlaps(birdCircle, topTubeRectangles[i]) || Intersector.overlaps(birdCircle, bottomTubeRectangles[i])) {
                 gameState = 2;
+                break;
             }
-
         }
 
         batch.end();
